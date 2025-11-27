@@ -45,4 +45,11 @@ resource "aws_ecs_service" "web_service" {
     assign_public_ip = false
     security_groups  = [aws_security_group.web_sg.id]
   }
+
+  load_balancer {
+    target_group_arn = aws_lb_target_group.tg.arn
+    container_name = "hr_app"
+    container_port = 80
+  }
+  depends_on = [aws_lb_listener.listener]
 }
