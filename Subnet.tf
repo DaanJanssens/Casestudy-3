@@ -66,18 +66,13 @@ resource "aws_security_group" "web_sg" {
   }
 
   egress {
-    from_port   = 80
-    to_port     = 80
+    from_port   = 0
+    to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  egress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+
 
   tags = {
     Name = "web_sg"
@@ -93,13 +88,13 @@ resource "aws_security_group" "database_sg" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = [aws_subnet.web_subnet_01.id]
+    cidr_blocks = ["192.168.3.0/24"]
   }
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = [aws_subnet.web_subnet_01.id]
+    cidr_blocks = ["192.168.3.0/24"]
   }
 
   tags = {
