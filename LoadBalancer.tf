@@ -1,5 +1,5 @@
 resource "aws_lb" "alb" {
-  name               = "innovatech_alb"
+  name               = "innovatech-alb"
   load_balancer_type = "application"
   subnets            = [aws_subnet.lb_subnet_01.id, aws_subnet.lb_subnet_02.id]
   security_groups    = [aws_security_group.loadbalancer_sg.id]
