@@ -14,7 +14,7 @@ resource "aws_ecs_task_definition" "hr_app" {
 
   container_definitions = jsonencode([
     {
-      name      = "webapp"
+      name      = "hrapp"
       image     = "nginx:latest"
       essential = true
       portMappings = [{
@@ -48,7 +48,7 @@ resource "aws_ecs_service" "web_service" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.tg.arn
-    container_name = "hr_app"
+    container_name = "hrapp"
     container_port = 80
   }
   depends_on = [aws_lb_listener.listener]
