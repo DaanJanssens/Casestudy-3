@@ -41,7 +41,7 @@ resource "aws_ecs_service" "web_service" {
   launch_type     = "FARGATE"
 
   network_configuration {
-    subnets          = [aws_subnet.web_subnet_01.id]
+    subnets          = [aws_subnet.web_subnet_01.id, aws_subnet.web_subnet_02.id]
     assign_public_ip = false
     security_groups  = [aws_security_group.web_sg.id]
   }

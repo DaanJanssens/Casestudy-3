@@ -3,7 +3,7 @@ resource "aws_lb" "alb" {
   load_balancer_type = "application"
   subnets            = [aws_subnet.lb_subnet_01.id, aws_subnet.lb_subnet_02.id]
   security_groups    = [aws_security_group.loadbalancer_sg.id]
-
+  idle_timeout = 60
 }
 
 resource "aws_lb_target_group" "tg" {
@@ -15,6 +15,7 @@ resource "aws_lb_target_group" "tg" {
 
   health_check {
     path = "/"
+    matcher = "200-399"
   }
 }
 
