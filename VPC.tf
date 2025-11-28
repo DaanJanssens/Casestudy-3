@@ -9,6 +9,7 @@ resource "aws_subnet" "lb_subnet_01" {
   vpc_id            = aws_vpc.innovatech.id
   cidr_block        = "192.168.1.0/24"
   availability_zone = var.zone1
+  map_public_ip_on_launch = true
   tags = {
     Name = "lb_subnet_01"
   }
@@ -18,6 +19,7 @@ resource "aws_subnet" "lb_subnet_02" {
   vpc_id            = aws_vpc.innovatech.id
   cidr_block        = "192.168.2.0/24"
   availability_zone = var.zone2
+  map_public_ip_on_launch = true
   tags = {
     Name = "lb_subent_02"
   }
