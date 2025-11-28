@@ -33,8 +33,8 @@ resource "aws_subnet" "web_subnet_01" {
 }
 
 resource "aws_subnet" "web_subnet_02" {
-  vpc_id = aws_vpc.innovatech.id
-  cidr_block = "192.168.6.0/24"
+  vpc_id            = aws_vpc.innovatech.id
+  cidr_block        = "192.168.6.0/24"
   availability_zone = var.zone2
   tags = {
     Name = "web_subnet_02"
