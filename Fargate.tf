@@ -2,7 +2,7 @@ resource "aws_ecs_cluster" "faregate_gluster" {
   name = "faregate-cluster"
 }
 
-resource "aws_ecs_task_definition" "hr_app" {
+resource "aws_ecs_task_definition" "hrapp" {
 
   family                   = "innovatech_hr_app"
   requires_compatibilities = ["FARGATE"]
@@ -26,7 +26,7 @@ resource "aws_ecs_task_definition" "hr_app" {
         options = {
           awslogs-group         = aws_cloudwatch_log_group.ecs_logs.name
           awslogs-region        = var.region
-          awslogs-stream-prefix = "webapp"
+          awslogs-stream-prefix = "hrapp"
         }
       }
     }
@@ -36,7 +36,7 @@ resource "aws_ecs_task_definition" "hr_app" {
 resource "aws_ecs_service" "web_service" {
   name            = "innovatech_web_service"
   cluster         = aws_ecs_cluster.faregate_gluster.id
-  task_definition = aws_ecs_task_definition.hr_app.arn
+  task_definition = aws_ecs_task_definition.hrapp.arn
   desired_count   = 1
   launch_type     = "FARGATE"
 
