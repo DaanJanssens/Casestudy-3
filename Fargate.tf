@@ -19,12 +19,19 @@ resource "aws_ecs_task_definition" "hrapp" {
   container_definitions = jsonencode([
     {
       name      = "hrapp"
-      image     = "nginx:latest"
+      image     = "${aws_ecr_repository.hrapp.repository_url}:latest"
       essential = true
       portMappings = [{
         containerPort = 80
         hostPort      = 80
       }]
+
+      environmet = [
+        { name = "DB_USER", value = var.db_user },
+        { name = "DB_PASSWORD", value = var.db_password },
+        { name = "DB_HOST", value = aws_db_instance.mysql_db.address },
+        { name = "DB_NAME", value = "innovatech_hr" }
+      ]
 
       healthCheck = {
         command     = ["CMD-SHELL", "curl -f http://localhost/ || exit 1"]

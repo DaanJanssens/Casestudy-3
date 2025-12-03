@@ -78,9 +78,9 @@ resource "aws_security_group" "database_sg" {
   vpc_id      = aws_vpc.innovatech.id
 
   ingress {
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "tcp"
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
     security_groups = [aws_security_group.web_sg.id]
   }
   egress {

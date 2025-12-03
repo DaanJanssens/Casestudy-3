@@ -24,13 +24,13 @@ variable "vpc_cidr" {
 
 variable "db_user" {
   description = "Username for DB account"
-  type = string
-  default = "Admin"
+  type        = string
+  default     = "Admin"
 }
 
 variable "db_password" {
   description = "Password for DB account"
-  type = string
-  sensitive = true
-  default = "Toetsenbord1!"
+  type        = string
+  sensitive   = true
+  default     = "Toetsenbord1!"
 }
