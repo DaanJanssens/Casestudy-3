@@ -1,9 +1,9 @@
 resource "aws_db_subnet_group" "db_subnet_group" {
-  name = "Innovatech-mysql-subnet-group"
+  name = "innovatech-mysql-subnet-group"
   subnet_ids = [aws_subnet.db_subnet_01.id, aws_subnet.db_subnet_02.id]
 
   tags = {
-    Name = "Innovatech-mysql-subnet-group"
+    Name = "innovatech-mysql-subnet-group"
   }
 }
 
