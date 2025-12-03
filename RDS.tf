@@ -8,7 +8,7 @@ resource "aws_db_subnet_group" "db_subnet_group" {
 }
 
 resource "aws_db_instance" "mysql_db" {
-  identifier = "innovatech_hrapp_mysql"
+  identifier = "hrappdb"
   engine = "mysql"
   engine_version = "8.0"
   instance_class = "db.t3.micro"
