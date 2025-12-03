@@ -21,3 +21,16 @@ variable "vpc_cidr" {
   type        = string
   default     = "192.168.0.0/16"
 }
+
+variable "db_user" {
+  description = "Username for DB account"
+  type = string
+  default = "Admin"
+}
+
+variable "db_password" {
+  description = "Password for DB account"
+  type = string
+  sensitive = true
+  default = "Toetsenbord1!"
+}

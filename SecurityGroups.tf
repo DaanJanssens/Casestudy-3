@@ -81,13 +81,13 @@ resource "aws_security_group" "database_sg" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = ["192.168.3.0/24"]
+    cidr_blocks = [aws_security_group.web_sg.id]
   }
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["192.168.3.0/24"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
