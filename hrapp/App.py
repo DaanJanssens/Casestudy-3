@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Depends, Request, Form
-from fastapi.responses import HTMPResponse
+from fastapi.responses import HTMLResponse
 from sqlalchemy.orm import Session
 from database import SessionLocal, engine , Base
 from models import User
@@ -14,6 +14,8 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
 @app.get("/", response_class=HTMLResponse)
 def home(db: Session = Depends(get_db)):
     users = db.query(User).all()
@@ -30,20 +32,20 @@ def home(db: Session = Depends(get_db)):
       </body>
     </html>
     """
-
-@app.get("/", response_class=HTMLResponse)
-def home(db: Session = Depends(get_db)):
-    users = db.query(User).all()
-    users_list = "".join(f"<li>{u.id}: {u.firstname} {u.lastname} ({u.email})</li>" for u in users)
-    return f"""
+@app.get("/create-user", response_class=HTMLResponse)
+def create_user_form():
+    return """
     <html>
-      <head><title>HR App</title></head>
+      <head><title>Create User</title></head>
       <body>
-        <h1>Welcome to the HR App</h1>
-        <h2>Users:</h2>
-        <ul>{users_list}</ul>
-        <p><a href="/create-user">Create User</a></p>
-        <p><a href="/delete-user">Delete User</a></p>
+        <h1>Create a new user</h1>
+        <form action="/create-user" method="post">
+          First name: <input type="text" name="firstname"><br>
+          Last name: <input type="text" name="lastname"><br>
+          Email: <input type="email" name="email"><br>
+          <input type="submit" value="Create User">
+        </form>
+        <p><a href="/">Back to Home</a></p>
       </body>
     </html>
     """
