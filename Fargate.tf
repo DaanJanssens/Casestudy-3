@@ -2,9 +2,6 @@ resource "aws_ecs_cluster" "faregate_gluster" {
   name = "faregate-cluster"
 }
 
-resource "aws_ecr_repository" "hrapp" {
-  name = "hrapp"
-}
 
 resource "aws_ecs_task_definition" "hrapp" {
 
