@@ -16,7 +16,7 @@ resource "aws_ecs_task_definition" "hrapp" {
   container_definitions = jsonencode([
     {
       name      = "hrapp"
-      image     = "${aws_ecr_repository.hrapp.repository_url}:latest"
+      image     = "771355239277.dkr.ecr.eu-central-1.amazonaws.com/hrapp:latest"
       essential = true
       portMappings = [{
         containerPort = 80
