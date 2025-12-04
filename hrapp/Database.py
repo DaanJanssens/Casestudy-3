@@ -8,7 +8,7 @@ DB_HOST = os.getenv("DB_HOST")
 DB_NAME = os.getenv("DB_NAME")
 
 
-DATABASE_URL =f"mysql+pymtsql://admin:Toetsenbord1!@hrappdb.cnsowymaalc7.eu-central-1.rds.amazonaws.com:3306/innovatech_hr"
+DATABASE_URL =f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:3306/{DB_NAME}"
 
 engine =create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

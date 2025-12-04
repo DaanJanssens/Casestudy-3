@@ -26,7 +26,7 @@ resource "aws_ecs_task_definition" "hrapp" {
         hostPort      = 80
       }]
 
-      environmet = [
+      environment = [
         { name = "DB_USER", value = var.db_user },
         { name = "DB_PASSWORD", value = var.db_password },
         { name = "DB_HOST", value = aws_db_instance.mysql_db.address },
