@@ -33,6 +33,13 @@ resource "aws_ecs_task_definition" "hrapp" {
         { name = "DB_NAME", value = "innovatech_hr" }
       ]
 
+      healthCheck = {
+        command     = ["CMD-SHELL", "true"]
+        interval    = 30
+        timeout     = 5
+        retries     = 3
+        startPeriod = 0
+      }
       logConfiguration = {
         logDriver = "awslogs"
         options = {
