@@ -1,12 +1,28 @@
+
+import boto3
 from fastapi import FastAPI, Depends, Request, Form
 from fastapi.responses import HTMLResponse
 from sqlalchemy.orm import Session
 from database import SessionLocal, engine , Base
 from models import User
 
+
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Innovatech HR App")
+
+def get_iam_departments():
+    iam = boto3.client("iam")
+    try:
+        response =iam.list_groups()
+        groups = response.get("Groups", [])
+        department_names = [g["GroupName"] for g in groups]
+
+        return department_names
+    
+    except Exception as e:
+        print("Error fetching IAM groups:", e)
+        return["HR", "IT", "Finance"]
 
 def get_db():
     db = SessionLocal()
@@ -34,7 +50,12 @@ def home(db: Session = Depends(get_db)):
     """
 @app.get("/create-user", response_class=HTMLResponse)
 def create_user_form():
-    return """
+    departments = get_iam_departments()
+
+    department_options = "\n".join(
+        [f"<option value='{d}'>{d}</option>" for d in departments]
+    )
+    return f"""
     <html>
       <head><title>Create User</title></head>
       <body>
@@ -43,6 +64,15 @@ def create_user_form():
           First name: <input type="text" name="firstname"><br>
           Last name: <input type="text" name="lastname"><br>
           Email: <input type="email" name="email"><br>
+          Department:
+          <select name="department" required>
+            {department_options}
+          </select><br><br>
+          Status:
+          <select name="state" required>
+            <option value="Active">Active</option>
+            <option value="Suspended">Suspended</option>
+          </select><br><br>
           <input type="submit" value="Create User">
         </form>
         <p><a href="/">Back to Home</a></p>
@@ -50,8 +80,8 @@ def create_user_form():
     </html>
     """
 @app.post("/create-user", response_class=HTMLResponse)
-def create_user_post(firstname: str = Form(...), lastname: str = Form(...), email: str = Form(...), db: Session = Depends(get_db)):
-    user = User(firstname=firstname, lastname=lastname, email=email)
+def create_user_post(firstname: str = Form(...), lastname: str = Form(...), email: str = Form(...), department: str = Form(...), state: str = Form(...), db: Session = Depends(get_db)):
+    user = User(firstname=firstname, lastname=lastname, email=email, department=department, state=state)
     db.add(user)
     db.commit()
     db.refresh(user)
@@ -61,6 +91,8 @@ def create_user_post(firstname: str = Form(...), lastname: str = Form(...), emai
       <body>
         <h1>User created successfully!</h1>
         <p>{user.firstname} {user.lastname} ({user.email})</p>
+        <p>Department: {user.department}</p>
+        <p>Status: {user.state}</p>
         <p><a href="/">Back to Home</a></p>
         <p><a href="/create-user">Create Another User</a></p>
       </body>
