@@ -4,3 +4,5 @@ sqlalchemy
 pymysql
 python-multipart
 boto3
+starlette
+itsdangerous

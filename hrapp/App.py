@@ -3,10 +3,9 @@ import boto3
 from fastapi import FastAPI, Depends, Request, Form
 from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlalchemy.orm import Session
-from starlette.middleware.session import SessionMiddleware
+from starlette.middleware.sessions import SessionMiddleware
 from database import SessionLocal, engine , Base
 from models import User
-
 
 Base.metadata.create_all(bind=engine)
 
