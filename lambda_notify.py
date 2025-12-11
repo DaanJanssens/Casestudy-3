@@ -1,9 +1,10 @@
 import json
 import boto3
+import os
 
 sns = boto3.client('sns')
 
-TOPIC_ARN = "REPLACE_ME"
+TOPIC_ARN = os.environ['SNS_TOPIC_ARN']
 
 def handler(event, context):
     print("Event:", json.dumps(event))
