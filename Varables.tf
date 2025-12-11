@@ -41,3 +41,22 @@ variable "alert_email" {
   default = "555086@student.fontys.nl"
 
 }
+variable "ecs_cluster_name" {
+  type    = string
+  default = "faregate-cluster"  
+}
+
+variable "fargate_services" {
+  type    = list(string)
+  default = ["innovatech_web_service"] 
+}
+
+variable "rds" {
+  type    = list(string)
+  default = ["hrappdb"]
+}
+
+variable "desired_day_count" {
+  type    = number
+  default = 1 
+}
