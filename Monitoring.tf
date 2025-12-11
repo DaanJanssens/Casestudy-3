@@ -312,40 +312,6 @@ resource "aws_cloudwatch_dashboard" "lambda_monitoring" {
           period = 300,
           stat   = "Average"
         }
-      },
-      {
-        type = "metric",
-        x = 0,
-        y = 18,
-        width = 12,
-        height = 6,
-        properties = {
-          title = "Stop Lambda Throttles",
-          view  = "timeSeries",
-          metrics = [
-            [ "AWS/Lambda", "Throttles", "FunctionName", "auto-shutdown-nonprod" ]
-          ],
-          region = "eu-central-1",
-          period = 300,
-          stat   = "Sum"
-        }
-      },
-      {
-        type = "metric",
-        x = 12,
-        y = 18,
-        width = 12,
-        height = 6,
-        properties = {
-          title = "Start Lambda Throttles",
-          view  = "timeSeries",
-          metrics = [
-            [ "AWS/Lambda", "Throttles", "FunctionName", "auto-start-nonprod" ]
-          ],
-          region = "eu-central-1",
-          period = 300,
-          stat   = "Sum"
-        }
       }
     ]
   })
