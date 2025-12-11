@@ -59,8 +59,8 @@ resource "aws_lambda_function" "stop_env" {
 }
 
 resource "aws_lambda_function" "start_env" {
-  function_name = "auto-start-nonprod"
-  handler       = "lambda_start_dev.handler"
+  function_name = "auto-start-env"
+  handler       = "lambda_start.handler"
   runtime       = "python3.12"
   role          = aws_iam_role.lambda_auto_ops_role.arn
   filename      = data.archive_file.start_env_zip.output_path
@@ -76,12 +76,12 @@ resource "aws_lambda_function" "start_env" {
 }
 
 resource "aws_cloudwatch_event_rule" "stop_schedule" {
-  name                = "shutdown-nonprod-evening"
+  name                = "shutdown-env-evening"
   schedule_expression = "cron(0 18 * * ? *)"
 }
 
 resource "aws_cloudwatch_event_rule" "start_schedule" {
-  name                = "start-nonprod-morning"
+  name                = "start-env-morning"
   schedule_expression = "cron(0 6 * * ? *)"
 }
 
