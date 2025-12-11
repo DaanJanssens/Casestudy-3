@@ -206,3 +206,147 @@ resource "aws_cloudwatch_dashboard" "rds_dashboard" {
   })
 }
 
+resource "aws_cloudwatch_dashboard" "lambda_monitoring" {
+  dashboard_name = "LambdaMonitoring"
+
+  dashboard_body = jsonencode({
+    widgets = [
+      {
+        type = "metric",
+        x = 0,
+        y = 0,
+        width = 12,
+        height = 6,
+        properties = {
+          title = "Stop Lambda Invocations",
+          view  = "timeSeries",
+          metrics = [
+            [ "AWS/Lambda", "Invocations", "FunctionName", "auto-shutdown-nonprod" ]
+          ],
+          region = "eu-central-1",
+          period = 300,
+          stat   = "Sum"
+        }
+      },
+      {
+        type = "metric",
+        x = 12,
+        y = 0,
+        width = 12,
+        height = 6,
+        properties = {
+          title = "Start Lambda Invocations",
+          view  = "timeSeries",
+          metrics = [
+            [ "AWS/Lambda", "Invocations", "FunctionName", "auto-start-nonprod" ]
+          ],
+          region = "eu-central-1",
+          period = 300,
+          stat   = "Sum"
+        }
+      },
+      {
+        type = "metric",
+        x = 0,
+        y = 6,
+        width = 12,
+        height = 6,
+        properties = {
+          title = "Stop Lambda Errors",
+          view  = "timeSeries",
+          metrics = [
+            [ "AWS/Lambda", "Errors", "FunctionName", "auto-shutdown-nonprod" ]
+          ],
+          region = "eu-central-1",
+          period = 300,
+          stat   = "Sum"
+        }
+      },
+      {
+        type = "metric",
+        x = 12,
+        y = 6,
+        width = 12,
+        height = 6,
+        properties = {
+          title = "Start Lambda Errors",
+          view  = "timeSeries",
+          metrics = [
+            [ "AWS/Lambda", "Errors", "FunctionName", "auto-start-nonprod" ]
+          ],
+          region = "eu-central-1",
+          period = 300,
+          stat   = "Sum"
+        }
+      },
+      {
+        type = "metric",
+        x = 0,
+        y = 12,
+        width = 12,
+        height = 6,
+        properties = {
+          title = "Stop Lambda Duration (ms)",
+          view  = "timeSeries",
+          metrics = [
+            [ "AWS/Lambda", "Duration", "FunctionName", "auto-shutdown-nonprod" ]
+          ],
+          region = "eu-central-1",
+          period = 300,
+          stat   = "Average"
+        }
+      },
+      {
+        type = "metric",
+        x = 12,
+        y = 12,
+        width = 12,
+        height = 6,
+        properties = {
+          title = "Start Lambda Duration (ms)",
+          view  = "timeSeries",
+          metrics = [
+            [ "AWS/Lambda", "Duration", "FunctionName", "auto-start-nonprod" ]
+          ],
+          region = "eu-central-1",
+          period = 300,
+          stat   = "Average"
+        }
+      },
+      {
+        type = "metric",
+        x = 0,
+        y = 18,
+        width = 12,
+        height = 6,
+        properties = {
+          title = "Stop Lambda Throttles",
+          view  = "timeSeries",
+          metrics = [
+            [ "AWS/Lambda", "Throttles", "FunctionName", "auto-shutdown-nonprod" ]
+          ],
+          region = "eu-central-1",
+          period = 300,
+          stat   = "Sum"
+        }
+      },
+      {
+        type = "metric",
+        x = 12,
+        y = 18,
+        width = 12,
+        height = 6,
+        properties = {
+          title = "Start Lambda Throttles",
+          view  = "timeSeries",
+          metrics = [
+            [ "AWS/Lambda", "Throttles", "FunctionName", "auto-start-nonprod" ]
+          ],
+          region = "eu-central-1",
+          period = 300,
+          stat   = "Sum"
+        }
+      }
+    ]
+  })
+}
