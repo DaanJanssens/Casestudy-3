@@ -54,7 +54,7 @@ resource "aws_ecs_task_definition" "hrapp" {
 
 resource "aws_ecs_service" "web_service" {
   name            = "innovatech_web_service"
-  cluster         = aws_ecs_cluster.faregate_gluster.id
+  cluster         = aws_ecs_cluster.faregate_cluster.id
   task_definition = aws_ecs_task_definition.hrapp.arn
   desired_count   = 1
   launch_type     = "FARGATE"

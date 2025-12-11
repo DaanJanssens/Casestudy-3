@@ -36,7 +36,7 @@ resource "aws_cloudwatch_event_target" "ecs_to_lambda" {
 
 resource "aws_lambda_permission" "allow_eventbridge" {
     statement_id = "AllowExecutionFromEventBridge"
-    action = "labda:InvokeFunction"
+    action = "lambda:InvokeFunction"
     function_name = aws_lambda_function.ecs_task_notify.function_name
     principal = "events.amazonaws.com"
     source_arn = aws_cloudwatch_event_rule.ecs_task_stopped.arn
