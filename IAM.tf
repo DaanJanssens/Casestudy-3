@@ -87,21 +87,23 @@ resource "aws_iam_role_policy" "lambda_auto_ops_policy" {
   role = aws_iam_role.lambda_auto_ops_role.id
 
   policy = jsonencode({
-    Version ="2012-20-17"
-    Statement =[{
-      Effect = "Allow"
-      Action = [
-        "ecs:UpdateService",
-        "ecs:DescribeServices",
-        "ecs:DescribeClusters",
-        "rds:StartDBInstance",
-        "rds:StopDBInstance",
-        "rds:DescribeDBInstances",
-        "logs:CreateLogGroup",
-        "logs:CreateLogStream",
-        "logs:PutLogEvents"
-      ]
-      Resource ="*"
-    }]
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "ecs:UpdateService",
+          "ecs:DescribeServices",
+          "ecs:DescribeClusters",
+          "rds:StartDBInstance",
+          "rds:StopDBInstance",
+          "rds:DescribeDBInstances",
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+        Resource = "*"
+      }
+    ]
   })
 }
