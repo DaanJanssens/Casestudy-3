@@ -34,3 +34,10 @@ variable "db_password" {
   sensitive   = true
   default     = "Toetsenbord1!"
 }
+
+variable "alert_email" {
+  description = "Email to send alert to"
+  type = string
+  default = "555086@student.fontys.nl"
+
+}

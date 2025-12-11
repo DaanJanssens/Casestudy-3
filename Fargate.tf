@@ -1,4 +1,4 @@
-resource "aws_ecs_cluster" "faregate_gluster" {
+resource "aws_ecs_cluster" "faregate_cluster" {
   name = "faregate-cluster"
 }
 
