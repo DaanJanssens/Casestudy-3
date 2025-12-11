@@ -19,7 +19,7 @@ resource "aws_cloudwatch_event_rule" "ecs_task_stopped" {
 
     event_pattern = jsonencode({
         source =["aws.ecs"]
-        detail-type = ["ECS tTask State Change"]
+        detail-type = ["ECS Task State Change"]
         detail ={
             lastStatus =["STOPPED", "DEPROVISIONING"]
             clusterArn =[aws_ecs_cluster.faregate_cluster.arn]
