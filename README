@@ -1,4 +1,4 @@
 This Repository consist of all the code I made for Casestudy 3.
 The files are Mainly Terrafrom and some Python. The Python files are for the Webapp they are located in the folder HRapp. Other python files are for the SOAR system. Rest of the files are for Terraform to deploy the network on AWS.
 Each file is labeld by what is inside. 
-Under Actions you have a workflow to deploy all files to AWS. It needs secrets that are under Settings > 
+Under Actions you have a workflow to deploy all files to AWS. It needs secrets that are under Settings > Secrets and Variabels > Actions. These secrests need to be updated each hour.
