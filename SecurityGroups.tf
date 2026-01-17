@@ -1,3 +1,4 @@
+#This whole file creates different Security groups of SSH, HTTP and MY-SQL connections
 resource "aws_security_group" "allow_ssh" {
   name        = "allow_ssh"
   description = "allow ssh connection"

@@ -1,3 +1,4 @@
+#Creates the VPC
 resource "aws_vpc" "innovatech" {
   cidr_block = var.vpc_cidr
   tags = {
@@ -5,6 +6,7 @@ resource "aws_vpc" "innovatech" {
   }
 }
 
+#Creates the different subnets
 resource "aws_subnet" "lb_subnet_01" {
   vpc_id                  = aws_vpc.innovatech.id
   cidr_block              = "192.168.1.0/24"

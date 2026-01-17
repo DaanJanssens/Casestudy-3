@@ -1,3 +1,4 @@
+#this whole file create the CloudWatch Dashboards
 resource "aws_cloudwatch_dashboard" "fargate_dashboard" {
   dashboard_name = "fargate-fargate-instances"
 

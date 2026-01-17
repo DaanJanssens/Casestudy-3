@@ -1,11 +1,14 @@
+#Creates the ECS cluster for fargate
 resource "aws_ecs_cluster" "faregate_cluster" {
   name = "faregate-cluster"
 }
 
+#Creates ECR repository for the Image of the HR app
 resource "aws_ecr_repository" "hrapp" {
   name = "hrapp"
 }
 
+#Creates the HR app itself
 resource "aws_ecs_task_definition" "hrapp" {
 
   family                   = "innovatech_hr_app"
@@ -52,6 +55,7 @@ resource "aws_ecs_task_definition" "hrapp" {
   ])
 }
 
+#Creates the Instance and connects it with the load balancer
 resource "aws_ecs_service" "web_service" {
   name            = "innovatech_web_service"
   cluster         = aws_ecs_cluster.faregate_cluster.id

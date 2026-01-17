@@ -1,3 +1,4 @@
+#This file creates variables used throughout this case study
 variable "region" {
   description = "AWS region"
   type        = string

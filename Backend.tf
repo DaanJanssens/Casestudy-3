@@ -1,3 +1,4 @@
+#Basic AWS configuration
 terraform {
   backend "s3" {
     bucket  = "git-case2-terraform-bucket"

@@ -1,3 +1,4 @@
+#This file makes the .py files into .zip files
 data "archive_file" "lambda_zip"{
     type = "zip"
     source_file = "${path.module}/lambda_notify.py"

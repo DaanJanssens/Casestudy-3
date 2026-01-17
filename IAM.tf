@@ -1,3 +1,4 @@
+#This whole file is for IAM roles and Policies that are neede to run the app
 resource "aws_iam_role" "ecs_task_execution_role" {
   name = "ecsTaskExecutionRole"
 

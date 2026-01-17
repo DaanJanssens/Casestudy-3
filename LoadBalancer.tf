@@ -1,3 +1,4 @@
+#Creates the Load balancer
 resource "aws_lb" "alb" {
   name               = "innovatech-alb"
   load_balancer_type = "application"
@@ -6,6 +7,7 @@ resource "aws_lb" "alb" {
   idle_timeout       = 60
 }
 
+#Creates the Target group with healt check
 resource "aws_lb_target_group" "tg" {
   name        = "fargate-tg"
   port        = 80
@@ -19,6 +21,7 @@ resource "aws_lb_target_group" "tg" {
   }
 }
 
+#Create listener on port 80
 resource "aws_lb_listener" "listener" {
   load_balancer_arn = aws_lb.alb.arn
   port              = 80

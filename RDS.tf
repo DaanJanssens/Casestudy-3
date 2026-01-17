@@ -1,3 +1,4 @@
+#Creates a subnet group for the two Database subnets
 resource "aws_db_subnet_group" "db_subnet_group" {
   name       = "innovatech-mysql-subnet-group"
   subnet_ids = [aws_subnet.db_subnet_01.id, aws_subnet.db_subnet_02.id]
@@ -7,6 +8,7 @@ resource "aws_db_subnet_group" "db_subnet_group" {
   }
 }
 
+#Creates the RDS database with all the needed info
 resource "aws_db_instance" "mysql_db" {
   identifier             = "hrappdb"
   engine                 = "mysql"

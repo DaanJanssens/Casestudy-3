@@ -1,3 +1,4 @@
+#Creates the lambda fucntion for the stopped ECS's
 resource "aws_lambda_function" "ecs_task_notify" {
     function_name = "ecs-task-stopped-sns-notify"
     handler = "lambda_notify.handler"
@@ -13,6 +14,7 @@ resource "aws_lambda_function" "ecs_task_notify" {
   
 }
 
+#Creates the Event Rule for the stopped ECS's
 resource "aws_cloudwatch_event_rule" "ecs_task_stopped" {
     name = "ecs-task-stopped-rule"
     description = "Trigger when ECS fargate task stops"
@@ -28,12 +30,14 @@ resource "aws_cloudwatch_event_rule" "ecs_task_stopped" {
   
 }
 
+#Assigs the tagt for hte event rule
 resource "aws_cloudwatch_event_target" "ecs_to_lambda" {
     rule = aws_cloudwatch_event_rule.ecs_task_stopped.name
     target_id = "ecsTASKStoppedToLambda"
     arn = aws_lambda_function.ecs_task_notify.arn
 }
 
+#Allow execurtion of event brige
 resource "aws_lambda_permission" "allow_eventbridge" {
     statement_id = "AllowExecutionFromEventBridge"
     action = "lambda:InvokeFunction"
@@ -42,6 +46,7 @@ resource "aws_lambda_permission" "allow_eventbridge" {
     source_arn = aws_cloudwatch_event_rule.ecs_task_stopped.arn
 }
 
+#Creates lambda function to stop RDS's
 resource "aws_lambda_function" "stop_env" {
     function_name = "auto-shutdown-env"
     handler = "lambda_stop.handler"
@@ -58,6 +63,7 @@ resource "aws_lambda_function" "stop_env" {
     }
 }
 
+#Creates lambda function to start RDS's
 resource "aws_lambda_function" "start_env" {
   function_name = "auto-start-env"
   handler       = "lambda_start.handler"
@@ -75,28 +81,33 @@ resource "aws_lambda_function" "start_env" {
   }
 }
 
+#Creates event rule to stop the RDS on a schedule
 resource "aws_cloudwatch_event_rule" "stop_schedule" {
   name                = "shutdown-env-evening"
   schedule_expression = "cron(0 18 * * ? *)"
 }
 
+#Creates event rule to start the RDS on a schedule
 resource "aws_cloudwatch_event_rule" "start_schedule" {
   name                = "start-env-morning"
   schedule_expression = "cron(0 6 * * ? *)"
 }
 
+#Assigs a target for the stop event bridge
 resource "aws_cloudwatch_event_target" "stop_trigger" {
   rule      = aws_cloudwatch_event_rule.stop_schedule.name
   target_id = "stopLambda"
   arn       = aws_lambda_function.stop_env.arn
 }
 
+#Assigs a target for the start event bridge
 resource "aws_cloudwatch_event_target" "start_trigger" {
   rule      = aws_cloudwatch_event_rule.start_schedule.name
   target_id = "startLambda"
   arn       = aws_lambda_function.start_env.arn
 }
 
+#Allows stop event bridge to trigger
 resource "aws_lambda_permission" "allow_stop" {
   statement_id  = "AllowEventStop"
   action        = "lambda:InvokeFunction"
@@ -105,6 +116,7 @@ resource "aws_lambda_permission" "allow_stop" {
   source_arn    = aws_cloudwatch_event_rule.stop_schedule.arn
 }
 
+#Allows start event bridge to trigger
 resource "aws_lambda_permission" "allow_start" {
   statement_id  = "AllowEventStart"
   action        = "lambda:InvokeFunction"
